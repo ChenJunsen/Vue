@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <script src="../js/vue.min.js"></script>
     <meta charset="UTF-8">
     <title>Vue起步</title>
@@ -16,6 +17,9 @@
     <p>姓名:{{name}}</p>
     <p>性别:{{gender}}</p>
     <p>欢迎语:{{getTips()}}</p>
+    <hr>
+    <input type="text" class="ed" placeholder="请输入姓名">
+    <input type="button" class="button green" value="点击替换输入的姓名" onclick="changeName('hh')">
 </div>
 </body>
 <script>
@@ -27,6 +31,14 @@
                 return '欢迎使用Vue';
             }
         }
-    })
+    });
+    <!--Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来-->
+    var changeName=function (n) {
+//        v.data.name=n;
+        console.log(v.$data);
+        console.log(v.$el);
+        console.log(v.$methods);
+        alert(n);
+    }
 </script>
 </html>

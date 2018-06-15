@@ -1,0 +1,35 @@
+.button{
+    border: solid;
+    color: white;
+    padding: 15px 32px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    border-radius: 3px;
+    border-color: white;
+}
+.ed{
+    border: solid;
+    border-color: deeppink;
+    padding: 15px 32px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    border-radius: 3px
+}
+.green{
+    background-color: #4CAF50; /* Green */
+}
+.red{
+    background-color: #f44336;
+}
+.yellow{
+    background-color: yellow;
+}
+.cyan{
+    background-color: cyan;
+}
