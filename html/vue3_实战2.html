@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <meta charset="UTF-8">
+    <title>实战2</title>
+    <style type="text/css">
+        body {
+            color: white;
+            background: black;
+            text-align: center;
+        }
+
+        .dv1 {
+            background: deepskyblue;
+            color: deeppink;
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <div>
+        <!--通过v-if来执行是否显示的操作-->
+        <label for="ck">是否显示</label>
+        <input id="ck" type="checkbox" v-model="setVisible">
+        <div v-if="setVisible" class="dv1">我是一段文字</div>
+        <hr>
+        <!--input双向绑定-->
+        <input type="text" placeholder="输入文字来实现双向绑定" v-model="inp">{{inp}}<br>
+        <!--单击事件绑定-->
+        <button v-on:click="btnClick(inp)" class="button red">弹窗显示输入了啥</button>
+    </div>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#vApp",
+        data: {
+            setVisible: true,
+            inp:''
+        },
+        methods:{
+            btnClick:function (n) {
+                alert('你输入了:'+n);
+            }
+        }
+    })
+</script>
+</html>
