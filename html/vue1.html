@@ -5,26 +5,25 @@
     <meta charset="UTF-8">
     <title>Vue起步</title>
     <style>
-        body{
+        body {
             background: black;
             color: aquamarine;
         }
     </style>
 </head>
 <body>
-    <div id="display">
-        <p>姓名:{{name}}</p>
-        <p>性别:{{gender}}</p>
-        <p>欢迎语:{{getTips()
-            }}</p>
-    </div>
+<div id="display">
+    <p>姓名:{{name}}</p>
+    <p>性别:{{gender}}</p>
+    <p>欢迎语:{{getTips()}}</p>
+</div>
 </body>
 <script>
-    var v=new Vue({
-        el:'#display',
-        data:{name:'Tom',gender:'male'},
-        methods:{
-            getTips:function () {
+    var v = new Vue({
+        el: '#display',
+        data: {name: 'Tom', gender: 'male'},
+        methods: {
+            getTips: function () {
                 return '欢迎使用Vue';
             }
         }
