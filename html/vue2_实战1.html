@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>实战1</title>
+    <style type="text/css">
+        body{
+            background: black;
+            color: aliceblue;
+            font-size: 12px;
+            text-align: center;
+        }
+        .display{
+            padding: 10px;
+            margin: 20px;
+            background: hotpink;
+            text-align: center;
+            border: solid;
+            border-color: aquamarine;
+            border-radius: 5px;
+        }
+        .display2{
+            padding: 10px;
+            margin: 20px;
+            background: greenyellow;
+            text-align: center;
+            color: cornflowerblue;
+            border: solid;
+            border-color: lightcyan;
+            border-radius: 5px;
+        }
+        #dv1{
+            background: darkorange;
+            text-align: center;
+        }
+        .warn{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="vApp">
+        <!--通过大双括号绑定普通值-->
+        <h1>{{title}}</h1>
+        <label for="ck">{{label}}</label>
+        <!--动态设置class-->
+        <input id="ck" type="checkbox" v-model="changeColor">
+        <div id="show" v-bind:class="{'display2':changeColor}">
+            Hello Vue  <label class="warn">{{changeColor}}</label>
+        </div>
+        <hr>
+        <!--动态设置id-->
+        <div v-bind:id="'dv'+id" class="display">
+            呵呵哒
+        </div>
+        <!--动态绑定链接-->
+        <a v-bind:href="url">{{link}}</a>
+        <!--通过v-bind:加具体的属性就可以动态绑定-->
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#vApp',
+        data:{
+            title:'Vue实战1',
+            label:'改变背景色',
+            changeColor:true,
+            link:'steam链接',
+            url:'https://store.steampowered.com/',
+            id:'1'
+        }
+    })
+</script>
+</html>
