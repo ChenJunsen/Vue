@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹性布局</title>
+    <style type="text/css">
+        body {
+            background: black;
+            color: white;
+        }
+        div.part,div.part2,div.part3,div.part4,div.part_baseline,div.part_stretch{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex_column {
+            display: flex;
+            flex-direction: column;
+        / / 主轴方向垂直，从上到下
+        }
+
+        .l_remind {
+            font-style: italic;
+            color: yellow;
+        }
+        .l_warn{
+            color: red;
+        }
+
+        .p_tip {
+            color: dodgerblue;
+        }
+
+        .p_desc {
+            color: beige;
+        }
+
+        .part {
+            padding: 5px;
+            margin: 1px;
+            border: solid aqua 2px;
+            background: #f44336;
+            width: 50px;
+            height: 50px;
+        }
+
+        .part2 {
+            padding: 5px;
+            margin: 1px;
+            border: solid chartreuse 2px;
+            background: rosybrown;
+            width: 40%;
+            height: 50px;
+        }
+
+        .part3 {
+            padding: 5px;
+            margin: 1px;
+            border: solid orchid 2px;
+            background: purple;
+            width: 80px;
+            height: 50px;
+        }
+
+        .part4 {
+            padding: 5px;
+            margin: 1px;
+            border: solid cornsilk 2px;
+            background: dimgrey;
+            color: deepskyblue;
+            width: 80px;
+            height: 50px;
+        }
+
+        .part_baseline {
+            padding: 5px;
+            margin: 1px;
+            border: solid cornsilk 2px;
+            background: dimgrey;
+            color: deepskyblue;
+            font-size: 28px;
+            width: 80px;
+            height: 50px;
+        }
+
+        .part_stretch {
+            padding: 5px;
+            margin: 1px;
+            border: solid cornsilk 2px;
+            background: dimgrey;
+            color: deepskyblue;
+            width: 80px;
+            height: auto;
+        }
+        .part5 {
+            padding: 5px;
+            margin: 1px;
+            border: solid aquamarine 2px;
+            background: indigo;
+            width: 26%;
+            height: 50px;
+        }
+        .part6 {
+            padding: 5px;
+            margin: 1px;
+            border: solid whitesmoke 2px;
+            background: mediumvioletred;
+            width: 50px;
+            height: 50px;
+        }
+        .part_order1{
+            order: 1;
+            background: goldenrod;
+        }
+        .part_order3{
+            order: 3;
+            background: steelblue;
+        }
+        .flex_row {
+            display: flex;
+            flex-direction: row;
+            height: 200px;
+        / / 主轴方向水平，从左到右，这个是默认属性
+        }
+
+        .flex_column_reverse {
+            display: flex;
+            flex-direction: column-reverse;
+        / / 主轴方向垂直反向
+        }
+
+        .flex_row_reverse {
+            display: flex;
+            flex-direction: row-reverse;
+        / / 主轴方向水平反向
+        }
+
+        .flex_wrap_no_wrap {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .flex_wrap_wrap {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex_wrap_reverse {
+            display: flex;
+            flex-wrap: wrap-reverse;
+        }
+
+        .flex_flow_wrap_reverse {
+            display: flex;
+            flex-flow: wrap-reverse column;
+        }
+
+        .flex_justify_content_start_row {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .flex_justify_content_end_row {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .flex_justify_content_center_row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .flex_justify_content_space_between_row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .flex_justify_content_space_around_row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .flex_align_items_flex_start {
+            display: flex;
+            align-items: flex-start;
+            height: 200px;
+        }
+
+        .flex_align_items_flex_end {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+        }
+
+        .flex_align_items_center {
+            display: flex;
+            align-items: center;
+            height: 200px;
+        }
+
+        .flex_align_items_baseline {
+            display: flex;
+            align-items: baseline;
+            height: 200px;
+        }
+
+        .flex_align_items_stretch {
+            display: flex;
+            align-items: stretch;
+            height: 200px;
+        }
+        .flex_align_content_flex_start{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            height: 200px;
+        }
+        .flex_align_content_flex_center{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            height: 200px;
+        }
+        .flex_align_content_flex_end{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            height: 200px;
+        }
+        .flex_align_content_space_between{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+            height: 200px;
+        }
+        .flex_align_content_space_around{
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-around;
+            height: 200px;
+        }
+        .flex_align_self_flex_end{
+            align-self: flex-end;
+        }
+        .flex_grow_2{
+            flex-grow: 2;
+            background: brown;
+        }
+        .flex_grow_3{
+            flex-grow: 3;
+            background: darkslateblue;
+        }
+    </style>
+</head>
+<body>
+1.垂直
+<div class="flex_column">
+    <div class="part">
+        part1
+    </div>
+    <div class="part">
+        part2
+    </div>
+    <div class="part">
+        part3
+    </div>
+</div>
+<hr>
+2.水平
+<div class="flex_row">
+    <div class="part">
+        part4
+    </div>
+    <div class="part">
+        part5
+    </div>
+    <div class="part">
+        part6
+    </div>
+</div>
+<hr>
+3.垂直反向
+<div class="flex_column_reverse">
+    <div class="part">
+        part1
+    </div>
+    <div class="part">
+        part2
+    </div>
+    <div class="part">
+        part3
+    </div>
+</div>
+<hr>
+4.水平反向
+<div class="flex_row_reverse">
+    <div class="part">
+        part4
+    </div>
+    <div class="part">
+        part5
+    </div>
+    <div class="part">
+        part6
+    </div>
+</div>
+<hr>
+5.挤压效果:适应屏幕宽度(即使设置了每个子模块宽度为屏幕宽度的40%，但是依旧会重新计算摆成一行)
+<div class="flex_wrap_no_wrap">
+    <div class="part2">
+        part7
+    </div>
+    <div class="part2">
+        part8
+    </div>
+    <div class="part2">
+        part9
+    </div>
+</div>
+<hr>
+6.挤压效果:宽度不够自动换行(适应设置的真实宽度)
+<div class="flex_wrap_wrap">
+    <div class="part2">
+        part7
+    </div>
+    <div class="part2">
+        part8
+    </div>
+    <div class="part2">
+        part9
+    </div>
+</div>
+<hr>
+7.挤压效果:宽度不够自动换行(适应设置的真实宽度，换行，并且第一行在容器最下方)
+<div class="flex_wrap_reverse">
+    <div class="part2">
+        part7
+    </div>
+    <div class="part2">
+        part8
+    </div>
+    <div class="part2">
+        part9
+    </div>
+</div>
+<hr>
+8.flex-flow 是flex-direction和flex-wrap的缩写形式，默认值为：flex-flow: row wrap
+<div class="flex_flow_wrap_reverse">
+    <div class="part2">
+        part7
+    </div>
+    <div class="part2">
+        part8
+    </div>
+    <div class="part2">
+        part9
+    </div>
+</div>
+<hr>
+9.延主轴方向从起始点到终点依次对齐(主轴为水平方向从左到右)
+<div class="flex_justify_content_start_row">
+    <div class="part3">
+        part7
+    </div>
+    <div class="part3">
+        part8
+    </div>
+    <div class="part3">
+        part9
+    </div>
+</div>
+<hr>
+10.延主轴方向从终点到起始点依次对齐(主轴为水平方向从左到右)
+<div class="flex_justify_content_end_row">
+    <div class="part3">
+        part7
+    </div>
+    <div class="part3">
+        part8
+    </div>
+    <div class="part3">
+        part9
+    </div>
+</div>
+<hr>
+11.延主轴方向居中对齐(主轴为水平方向从左到右)
+<div class="flex_justify_content_center_row">
+    <div class="part3">
+        part7
+    </div>
+    <div class="part3">
+        part8
+    </div>
+    <div class="part3">
+        part9
+    </div>
+</div>
+<hr>
+12.延主轴方向两端对齐，项目之间的间隔都相等。(开头和最后的项目，与父容器边缘没有间隔)(主轴为水平方向从左到右)
+<div class="flex_justify_content_space_between_row">
+    <div class="part3">
+        part7
+    </div>
+    <div class="part3">
+        part8
+    </div>
+    <div class="part3">
+        part9
+    </div>
+</div>
+<hr>
+13.延主轴方向每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。(开头和最后的项目，与父容器边缘有一定的间隔)(主轴为水平方向从左到右)
+<div class="flex_justify_content_space_around_row">
+    <div class="part3">
+        part7
+    </div>
+    <div class="part3">
+        part8
+    </div>
+    <div class="part3">
+        part9
+    </div>
+</div>
+<hr>
+14.align_items:flex-start(default)<br>
+<p class="p_tip">
+    这里需要明白一个<label class="l_remind">交叉轴</label>的概念:<br>
+    因为默认的flex-direction是row,即主轴方向为水平从左到右<br>
+    那么交叉轴就是与主轴垂直的那条轴，方向为从上到下；<br>
+    同理，如果设置主轴方向水平从右到左，那么交叉轴的方向就是垂直从下到上.<br>
+</p>
+<p class="p_desc">
+    如此:<br>
+    flex-start：交叉轴的起点对齐。<br>
+    flex-end：交叉轴的终点对齐。<br>
+    center：交叉轴的中点对齐。<br>
+    baseline: 项目的第一行文字的基线对齐。(文字的行高、字体大小会影响每行的基线)<br>
+    stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。<br>
+</p>
+<div class="flex_align_items_flex_start">
+    <div class="part4">
+        part10
+    </div>
+    <div class="part4">
+        part11
+    </div>
+    <div class="part4">
+        part12
+    </div>
+</div>
+<hr>
+15.align_items:flex-end
+<div class="flex_align_items_flex_end">
+    <div class="part4">
+        part10
+    </div>
+    <div class="part4">
+        part11
+    </div>
+    <div class="part4">
+        part12
+    </div>
+</div>
+<hr>
+16.align_items:center
+<div class="flex_align_items_center">
+    <div class="part4">
+        part10
+    </div>
+    <div class="part4">
+        part11
+    </div>
+    <div class="part4">
+        part12
+    </div>
+</div>
+<hr>
+16.align_items:baseline
+<div class="flex_row">
+    <div class="flex_align_items_baseline">
+        <div class="part_baseline">
+            part10
+        </div>
+        <div class="part4">
+            part11
+        </div>
+        <div class="part4">
+            part12
+        </div>
+    </div>
+    <img src="../asset/img/baseline.png">
+</div>
+<hr>
+17.align_items:stretch<br>
+这里的交叉轴方向为垂直从上到下，所以当子模块的高度设置为auto或者不设高度时<br>
+就会自动拉伸到父容器高度
+<div class="flex_align_items_stretch">
+    <div class="part_stretch">
+        part10
+    </div>
+    <div class="part_stretch">
+        part11
+    </div>
+    <div class="part_stretch">
+        part12
+    </div>
+</div>
+<hr>
+18.align_content:center<br>与交叉轴的中点对齐<br>
+align_content和align_items的用法类似，不过:
+<label class="l_warn">align_content只在多行的时候有效</label><br>
+正因如此，它比align_items多了space的两个属性
+<div class="flex_align_content_flex_center">
+    <div class="part5">
+        part10
+    </div>
+    <div class="part5">
+        part11
+    </div>
+    <div class="part5">
+        part12
+    </div>
+    <div class="part5">
+        part13
+    </div>
+</div>
+<hr>
+19.align_content:flex-start<br>与交叉轴的起点对齐
+<div class="flex_align_content_flex_start">
+    <div class="part5">
+        part10
+    </div>
+    <div class="part5">
+        part11
+    </div>
+    <div class="part5">
+        part12
+    </div>
+    <div class="part5">
+        part13
+    </div>
+</div>
+<hr>
+20.align_content:flex-end<br>与交叉轴的终点对齐
+<div class="flex_align_content_flex_end">
+    <div class="part5">
+        part10
+    </div>
+    <div class="part5">
+        part11
+    </div>
+    <div class="part5">
+        part12
+    </div>
+    <div class="part5">
+        part13
+    </div>
+</div>
+<hr>
+21.align_content:space_between<br>与交叉轴两端对齐，轴线之间的间隔平均分布
+<div class="flex_align_content_space_between">
+    <div class="part5">
+        part10
+    </div>
+    <div class="part5">
+        part11
+    </div>
+    <div class="part5">
+        part12
+    </div>
+    <div class="part5">
+        part13
+    </div>
+</div>
+<hr>
+21.align_content:space_around<br>每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+stretch（默认值）：轴线占满整个交叉轴
+<div class="flex_align_content_space_around">
+    <div class="part5">
+        part10
+    </div>
+    <div class="part5">
+        part11
+    </div>
+    <div class="part5">
+        part12
+    </div>
+    <div class="part5">
+        part13
+    </div>
+</div>
+<hr>
+22.align_self:flex-end<br>
+align_self是子模块单独设置自己的布局位置的属性<br>
+下面这个例子，父布局是要求子模块水平从左到右居顶部排列，然后第二个子模块自己单独设置居于底部
+<div class="flex_row">
+    <div class="part6">
+        part14
+    </div>
+    <div class="part6 flex_align_self_flex_end">
+        part15
+    </div>
+    <div class="part6">
+        part16
+    </div>
+    <div class="part6">
+        part17
+    </div>
+    <div class="part6">
+        part18
+    </div>
+</div>
+<hr>
+23.排序order<br>
+order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0
+<div class="flex_row">
+    <div class="part6">
+        part14
+    </div>
+    <div class="part6 part_order3">
+        part15
+    </div>
+    <div class="part6">
+        part16
+    </div>
+    <div class="part6">
+        part17
+    </div>
+    <div class="part6 part_order1">
+        part18
+    </div>
+</div>
+<hr>
+24.权重flex-grow<br>
+需要注意:<br>
+<li>子模块的宽度（或者高度，取决于父布局方向）不能为百分比，必须是实际的</li>
+<li>子模块的默认flex-grow是0，意思就是不设置权重，以自身的实际值为准</li>
+下面这个例子:<br>
+part14,part16没设置，就是默认0，就是取实际宽度<br>
+part15，part18设置2，part17设置3，因此，宽度计算方式为:<br>
+<label class="l_warn">1份宽度=(屏幕宽度-w14-w16)/(2+2+3)</label><br>
+<label class="l_warn">w15=w18=1份宽*2</label><br>
+<label class="l_warn">w17=1份宽*3</label><br>
+<div class="flex_row">
+    <div class="part6">
+        part14
+    </div>
+    <div class="part6 flex_grow_2">
+        part15
+    </div>
+    <div class="part6">
+        part16
+    </div>
+    <div class="part6 flex_grow_3">
+        part17
+    </div>
+    <div class="part6 flex_grow_2">
+        part18
+    </div>
+</div>
+<hr>
+25.权重flex-shrink<br>
+<div class="flex_justify_content_space_around_row">
+    <img src="../asset/img/shrink1.png">
+    <img src="../asset/img/shrink2.png">
+    <img src="../asset/img/shrink3.png">
+</div>
+<hr>
+26.flex-basis<br>
+<div>
+    <img src="../asset/img/flex-basis.png">
+</div>
+</body>
+</html>
