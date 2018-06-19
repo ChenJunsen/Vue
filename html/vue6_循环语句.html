@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>循环语句</title>
+    <style type="text/css">
+        body {
+            background: #000;
+            color: cyan;
+        }
+
+        img {
+            height: 100px;
+            width: 100px;
+        }
+
+        h2 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h2>v-for实现遍历</h2>
+    <div v-for="i in imgs">
+        <img v :src="i">
+        {{i}}
+    </div>
+    <!--<img v-for="i in imgs" src="i">-->
+    <hr>
+    <h2>v-for可以循环遍历对象内部的属性</h2>
+    <h3 v-for="prop in cat">{{prop}}</h3>
+    <hr>
+    <h2>v-for可以循环遍历对象内部的属性,包括键值</h2>
+    <h3 v-for="(prop,key) in cat">{{key+":"+prop}}</h3>
+    <hr>
+    <h2>v-for可以循环遍历对象内部的属性,键值，索引</h2>
+    <h3 v-for="(prop,key,index) in cat">{{key+":"+prop+" "+index}}</h3>
+    <hr>
+    <h2>遍历整数</h2>
+    <h3 v-for="n in 20">{{n}}</h3>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#vApp',
+        data: {
+            imgs: [
+                '../asset/img/ic_stop.png',
+                '../asset/img/ic_user.png',
+                '../asset/img/ic_question.png',
+                '../asset/img/ic_info.png'
+            ],
+            cat: {
+                name: 'Tom',
+                height: 40,
+                weight: 13.5,
+                gender: 'male'
+            }
+        }
+    })
+</script>
+</html>
