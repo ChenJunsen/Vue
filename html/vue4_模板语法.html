@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <style type="text/css">
+        body {
+            background: black;
+            color: white;
+        }
+
+        .l {
+            color: #f44336;
+        }
+
+        .empty {
+            font-size: 30px;
+            padding: 2px;
+            margin: 2px;
+            background: darksalmon;
+            border: solid;
+            border-color: aqua;
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="vApp">
+    <!--数据绑定最常见的形式就是使用 {{...}}（双大括号）的文本插值-->
+    <!--HTML 属性中的值应使用 v-bind 指令-->
+    <!--具体绑定哪个属性，可以使用v-bind:XXX来绑定XXX属性-->
+    <span v-bind:class="{'empty':isShow}">第4节:模板语法嵌入</span>
+    <!--使用 v-html 指令用于输出 html 代码-->
+    <div v-html="msg"></div>
+
+    <div>
+        <p>v-if表示是否显示该元素，属性是个布尔值</p>
+        <img src="../asset/img/vue-puzzle.png" v-if="isShow">
+        <!--Vue.js 都提供了完全的 JavaScript 表达式支持,例如支持三目运算-->
+        <label for="cbox">{{(isShow?'隐藏':'显示')+'图片'}}</label>
+        <input type="checkbox" v-model="isShow" id="cbox">
+        <hr>
+        <!--v-on用于执行DOM的指令，v-on:click就是执行点击的方法-->
+        <button v-on:click="sayHello('ok')">点我啊</button>
+        <!--v-on:click可以缩写为@click-->
+        <button @click="sayHello('缩写')">缩写</button>
+        <hr>
+        <a v-bind:href="steamUrl">Steam商店</a>
+        <!--v-bind:指令可以缩减为v :,注意冒号之前有个空格;将target属性设置成_blank就可以在新页面打开-->
+        <a v :href="gitHubUrl" v :target="target">gitHub</a>
+        <hr>
+        <!--实现双向绑定的方式就是通过{{}}和v-model的组合-->
+        <!--不要忘记在data中定义v-model-->
+        <input type="text" placeholder="输入字符来演示双向绑定" v-model="inp">
+        <h2>{{inp}}</h2>
+        <hr>
+        <p>过滤器演示</p>
+        <div>
+            <input type="text" placeholder="输入的字符会被反转显示" v-model="rev">
+            <!--通过管道线实现过滤器操作-->
+            <!--这里，message 是第一个参数，字符串 'arg1' 将传给过滤器作为第二个参数， arg2 表达式的值将被求值然后传给过滤器作为第三个参数-->
+            <h2>{{rev|reverse('A10','胖胖')}}</h2>
+            <!--支持多根管道线来实现多个过滤器操作-->
+            <h2>{{rev|reverse|capitalize}}</h2>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+    function a() {
+        alert("ok")
+    }
+    new Vue({
+        el: '#vApp',
+        data: {
+            msg: '<label class="l">模板语法嵌入</label>',
+            isShow: true,
+            inp: '',
+            rev: '',
+            target:'_blank',
+            steamUrl:'https://store.steampowered.com/',
+            gitHubUrl:'https://github.com/'
+        },
+        methods: {
+            sayHello: function (n) {
+                alert(n);
+            }
+        },
+        filters: {
+            //字符反转
+            reverse: function (n, n1, n2) {
+                if (!n) {
+                    return "";
+                } else {
+                    var a1=n;
+                    if(n){
+                        a1=n1+n;
+                    }
+                    a1=a1.split('').reverse().join('');
+                    if(n2){
+                      a1+=n2;
+                    }
+                    return a1;
+                }
+            },
+            //首字母大写
+            capitalize: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            }
+        }
+    });
+</script>
+</html>
