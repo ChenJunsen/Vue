@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>属性监控</title>
+    <style type="text/css">
+        body {
+            background: black;
+            color: aquamarine;
+        }
+
+        .ed {
+            border: solid;
+            border-color: chartreuse;
+            border-width: 3px;
+            border-radius: 8px;
+            font-size: 45px;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    人民币:<input type="text" v-model="ed1" class="ed">{{ed1}}<br>
+    日元:<input type="text" v-model="ed2" class="ed">{{ed2}}<br>
+    ed1变化:{{display}}<br>
+    ed2变化:{{display2}}<br>
+</div>
+</body>
+<script>
+    var vue=new Vue({
+        el: '#vApp',
+        data: {
+            ed1: '',
+            ed2: '',
+            display:'',
+            display2:''
+        },
+        watch: {
+            ed1: function (val) {
+                this.ed1=val;
+                this.ed2=val*8.5;
+            },
+            ed2: function (val) {
+                this.ed1=val/8.5;
+                this.ed2=val;
+            }
+        },
+        methods:{
+            setDisplay:function (val) {
+                this.display=val;
+            },
+            getDisplay:function () {
+                return this.display;
+            },
+            setDisplay2:function (val) {
+                this.display2=val;
+            }
+        }
+    });
+    vue.$watch('ed1',function (v1,v2) {
+        console.log('v1:'+v1+'  v2:'+v2);
+        this.setDisplay(v1+'  '+v2);
+    });
+    vue.$watch('ed2',function (v1,v2) {
+        console.log('v1:'+v1+'  v2:'+v2);
+        this.setDisplay2(v1+'  '+v2);
+    });
+</script>
+</html>
