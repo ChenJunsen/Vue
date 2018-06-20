@@ -25,7 +25,10 @@
     <div id="vApp">
         <input type="text" v-model="msg" placeholder="输入字符反转" class="edit"> <br>
         {{reverse}}
-        <button @click="setMsg('HelloWorld')">设置字符为HelloWorld</button>
+        <button @click="modify('HelloWorld')">设置字符为HelloWorld</button>
+
+        <hr>
+        <button @click="alert()">我是来自computed的点击事件</button>
     </div>
 </body>
 <script>
@@ -48,6 +51,15 @@
                 set:function (val) {
                     this.msg=val;
                 }
+            },
+            //如果这个方法写在computed里面，那么点击时只会执行一次
+//            alert:function () {
+//                alert('ok');
+//            }
+        },
+        methods:{
+            alert:function () {
+                alert('ok');
             }
         }
     });
