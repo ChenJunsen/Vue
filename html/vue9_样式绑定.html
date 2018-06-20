@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>样式绑定</title>
+    <style>
+        body {
+            background: black;
+            color: aquamarine;
+        }
+
+        .ed {
+            border: #f44336 solid 4px;
+            font-size: 30px;
+            padding: 5px;
+            border-radius: 10px;
+            margin: 5px;
+            background: darkgray;
+            color: darkorange;
+        }
+
+        .ed2 {
+            border: yellow solid 4px;
+            font-size: 30px;
+            padding: 5px;
+            border-radius: 10px;
+            background: darkgray;
+            margin: 5px;
+            color: beige;
+        }
+
+        .reBg {
+            background: red;
+            color: white;
+        }
+
+        .baseEd {
+            border-radius: 10px;
+            margin: 5px;
+            padding: 5px;
+            font-size: 27px;
+        }
+
+        .correct {
+            border: green solid 4px;
+        }
+
+        .error {
+            border: deeppink solid 4px;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h1>1.引用Style标签里面的样式</h1>
+    <!--html属性是无法使用双花括号引用Vue参数的，需要使用v-bind:XXX来实现-->
+    <input type="text" v-bind:class="eClass" v-bind:placeholder="placeholder+'1'"><br>
+    <!--因为v-bind是可以省略的，所以可以这样写-->
+    <input type="text" :class="eClass2" :placeholder="placeholder+'2'">
+    <!--支持数组，多个样式复用-->
+    <input type="text" :class="[eClass,eRed]">
+    <hr>
+    <h2>1.1实例:验证输入框的字符长度是否够5位</h2>
+    <input type="text" :class="['baseEd',isCorrect?correct:error]" placeholder="请输入字符(最少长度5)" v-model="inp"><br>
+    <span style="color: cyan;">{{check}}</span>
+    <hr>
+    <h1>2.引用Style对象里面的样式</h1>
+    <!--同样支持数组形式-->
+    <span v-bind:style="[styleObj,styleObj2]">我是一段样式文字</span>
+</div>
+</body>
+<script>
+    var vue = new Vue({
+        el: '#vApp',
+        data: {
+            placeholder: '样式展示',
+            eClass: 'ed',
+            eClass2: 'ed2',
+            eRed: 'reBg',
+            correct: 'correct',
+            error: 'error',
+            isCorrect: false,
+            inp: '',
+            styleObj:{
+                color:'#01d867',
+                fontSize:'26px'
+            },
+            styleObj2:{
+                background: 'red'
+            }
+        },
+        computed: {
+            check: function () {
+                var val = this.inp;
+                var res = false;
+                if (val) {
+                    res = val.split('').length > 4;
+                }
+                this.isCorrect=res;
+                return res;
+            }
+        }
+    })
+</script>
+</html>
