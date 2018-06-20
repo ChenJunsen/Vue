@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <style>
+        body {
+            background: black;
+            color: deeppink;
+        }
+
+        .ic {
+            border: dashed deeppink 2px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .sp {
+            color: mediumorchid;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="vApp">
+    <h1>全局组件(本应用内)</h1>
+    <gi></gi>
+    <hr>
+    <h1>局部组件</h1>
+    <ps></ps>
+</div>
+<div id="vApp2">
+    <h1>全局组件(别的应用)</h1>
+    <gi></gi>
+    <!--因为ps是vApp的局部组件，只在vApp里有效-->
+    <ps></ps>
+</div>
+</body>
+<script>
+    var globalCompObj = {
+        template: '<img src="../asset/img/ic_info.png" class="ic"/>'
+    };
+    var partCompObj = {
+        template: '<span class="sp">我是局部文字</span>'
+    };
+    //写在外面就是全局注册组件
+    Vue.component('gi', globalCompObj);
+    var vue = new Vue({
+        el: "#vApp",
+        data: {}
+        ,
+        components: {
+            //写在里面就是局部注册组件
+            'ps': partCompObj
+        }
+    });
+    var vue2 = new Vue({
+        el: '#vApp2'
+    })
+</script>
+</html>
