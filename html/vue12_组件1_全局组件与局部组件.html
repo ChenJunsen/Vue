@@ -46,7 +46,7 @@
         template: '<span class="sp">我是局部文字</span>'
     };
     //写在外面就是全局注册组件
-    Vue.component('gi', globalCompObj);
+    Vue.component('gi', globalCompObj);//一定要注意，自定义属性只支持全小写，不支持驼峰写法
     var vue = new Vue({
         el: "#vApp",
         data: {}
