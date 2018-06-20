@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>表单</title>
+    <style>
+        body{
+            background: black;
+            color: gainsboro;
+        }
+        h3{
+            color: fuchsia;
+        }
+    </style>
+
+</head>
+<body>
+<div id="vApp">
+    <h1>单选框</h1>
+    <label>苹果</label><input id="cb_apple" type="radio" v-model="cb" value="80">
+    <label>菠萝</label><input id="cb_pieApple" type="radio" v-model="cb" value="50">
+    <h3>{{cb}}</h3>
+    <hr>
+    <h1>复选框</h1>
+    <label>狗</label><input id="cb_dog" type="checkbox" v-model="cb_animal" value="001">
+    <label>鱼</label><input id="cb_fish" type="checkbox" v-model="cb_animal" value="002" checked>
+    <label>猴子</label><input id="cb_monkey" type="checkbox" v-model="cb_animal" value="003">
+    <h3>{{cb_animal}}</h3>
+    <hr>
+    <h1>下拉列表</h1>
+    <select v-model="money">
+        <option value="dollar">美元</option>
+        <option value="rmb">软妹币</option>
+        <option value="hkDollar">港元</option>
+    </select>
+    <h3>{{money}}</h3>
+    <hr>
+    <h1>修饰符</h1>
+    <h2>去掉从输入框获取到的字符的首尾空格</h2>
+    <input type="text" placeholder="即使你输入在首尾输入空格，得到的也是没空格的" v-model.trim="inp"><br>
+    {{inp}}
+    <!--另外还有lazy和number修饰符-->
+    <!--在默认情况下， v-model 在 input 事件中同步输入框的值与数据，但你可以添加一个修饰符 lazy ，从而转变为在 change 事件中同步-->
+    <!--如果想自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值），可以添加一个修饰符 number 给 v-model 来处理输入值-->
+</div>
+</body>
+<script>
+    new Vue({
+        el:'#vApp',
+        data:{
+            //这两个取值有点意思:
+            //单选状态下，value与data中的值相同时表示被选中。如果默认值不在所有value中，那么默认都没被选中
+            cb:80,
+            //复选状态下，默认值应该是个数组
+            //如果要选中某一个值，则data的值与被选中的value应该相同
+            //一旦data中的默认值类型不是数组，就只会返回布尔值
+            //另外，选中的值只会在默认数组的基础上添加或减小，但不会修改默认里面的初始值
+            cb_animal:[1],
+            money:'rmb',
+            inp:''
+        }
+    });
+</script>
+</html>
