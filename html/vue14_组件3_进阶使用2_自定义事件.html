@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>自定义事件</title>
+    <style>
+        body {
+            background: black;
+            color: deeppink;
+        }
+        .btn{
+            border: solid plum 5px;
+            font-size: 33px;
+            background: transparent;
+            color: aqua;
+        }
+        .l{
+            font-size: 40px;
+            padding: 10px;
+            border: dotted deepskyblue 3px;
+            margin: 2px;
+            display: inline-block;
+        }
+        .p1{
+            color: white;
+            border: solid;
+            padding: 5px;
+            border-color: crimson;
+        }
+        .p2{
+            color: white;
+            border: solid;
+            padding: 5px;
+            border-color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h1>实例:自定义计数按钮</h1>
+    <counter-btn txt="点了" cc="btn" v-on:cplus="add2" v-on:click.native="al('ok')"></counter-btn><span class="l">{{total}}</span>
+    <p class="p1">
+        父组件是使用 props 传递数据给子组件，但如果子组件要把数据传递回去，就需要使用自定义事件！<br>
+        我们可以使用 v-on 绑定自定义事件, 每个 Vue 实例都实现了事件接口(Events interface)，即：<br>
+        使用 $on(eventName) 监听事件<br>
+        使用 $emit(eventName) 触发事件<br>
+        另外，父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件。<br>
+        以下实例中子组件已经和它外部完全解耦了。它所做的只是触发一个父组件关心的内部事件。<br>
+    </p>
+    <p class="p2">
+        如果你想在某个组件的根元素上监听一个原生事件。可以使用 .native 修饰 v-on。<br>
+        上面的例子，其根元素实际是个button,使用v-on:click.native="al('ok')"的效果就等同于在button上面监听click
+    </p>
+</div>
+</body>
+<script>
+    var cbCompObj = {
+        props: {
+            //按钮基础文字
+            txt:{
+                required:false,
+                type:String
+            },
+            //按钮样式
+            cc:{
+                required:true
+            }
+        },
+        template: '<button :class="cc" v-on:click="btnClick">{{txt+count}}</button>',
+        data: function () {
+            return {
+                count:0//定义一个计数的变量
+            }
+        },
+        methods: {
+            btnClick:function () {
+                this.count++;//该操作发生在子组件内部，不会影响外部
+                //这里定义点击所执行的操作，可以传递给父组件，通知外部做指定的事情
+                //$emit可以传入两个参数，第一个是自定义的事件名字，第二个是需要向外部传递的参数数组，第二个可选
+                this.$emit('cplus',[this.count]);
+                console.log('count:'+this.count);
+            }
+        }
+    };
+    Vue.component('counter-btn',cbCompObj);
+    var vue = new Vue({
+        el: '#vApp',
+        data: {
+            total:0
+        },
+        methods:{
+            add2:function (n) {
+                this.total+=2;
+                //请注意这里的n的来历:
+                //在cbCompObj的methods的btnClick中，我们定义了$emit,并且将那里的计数传出来了，
+                //这里的n就是那里的count
+                console.log('n:'+n);
+            },
+            al:function (n) {
+                alert(n);
+            }
+        }
+    });
+</script>
+</html>
