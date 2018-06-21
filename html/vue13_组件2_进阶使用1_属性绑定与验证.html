@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <style>
+        body {
+            background: black;
+            color: deeppink;
+        }
+
+        .ic {
+            border: dashed deeppink 2px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .sp {
+            color: mediumorchid;
+            font-size: 50px;
+        }
+
+        .ed {
+            background: transparent;
+            border: solid aqua 5px;
+            color: deeppink;
+            font-size: 35px;
+            padding: 5px;
+            margin: 5px;
+        }
+        .ed2 {
+            background: slategrey;
+            border: solid greenyellow 5px;
+            color: cyan;
+            font-size: 35px;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .squ {
+            width: 20px;
+            height: 20px;
+            margin: 10px;
+            color: black;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <mspan msg="helloWorld"></mspan>
+    <br>
+    <calspan first="100" second="22" c="sp"></calspan>
+    <hr>
+    <h1>实例演示1：动态绑定属性</h1>
+    <input type="text" class="ed" placeholder="请输入字符" v-model="inp"><br>
+    <mspan v-bind:msg="inp"></mspan>
+    <h3>prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来</h3>
+    <input type="text" class="ed2" v-model="inp2">
+    <minput :txt="inp2"></minput>
+    <hr>
+    <h1>实例演示2：循环读取数据</h1>
+    <div v-for="(color,index) in colors">
+        <squ :sstyle="color" :desc="index"></squ>
+    </div>
+</div>
+</body>
+<script>
+    var spanCompObj = {
+        //自定义属性：span要显示的文字
+        props: ['msg'],
+        template: '<span class="sp">{{msg}}</span>'
+    };
+    var calCompObj = {
+        //自定义三个属性:加数，第二加数，span的类样式
+        props: ['first', 'second', 'c'],
+        template: '<span :class="c">{{first*1+second*1}}</span>'
+    };
+    //自定义方块
+    var squCompObj = {
+        //属性值一定要全小写，像sStyle或者s-style是不行的
+//        props: ['sstyle','desc'],
+        //组件可以为 props 指定验证要求。
+       // prop 是一个对象而不是字符串数组时，它包含验证要求：
+        props:{
+            sstyle:{
+                required:true//该属性是必须的
+            },
+            desc:{
+//                type 可以是下面原生构造器：
+//                String
+//                Number
+//                Boolean
+//                Function
+//                Object
+//                Array
+//                type 也可以是一个自定义构造器，使用 instanceof 检测。
+                type:String,
+                default:'S'
+            }
+        },
+        template: '<div :style="sstyle" class="squ">{{desc}}</div>'
+    }
+    var edCompObj={
+        props:['txt','model'],
+        template:'<input type="text" class="ed" :value="txt" placeholder="单向绑定的哦" v-bind:v-model="model">'
+    }
+    //全局注册
+    Vue.component('mspan', spanCompObj);
+    Vue.component('calspan', calCompObj);
+    Vue.component('squ', squCompObj);
+    Vue.component('minput',edCompObj);
+    var vue = new Vue({
+        el: '#vApp',
+        data: {
+            inp: '',
+            colors: [
+                {background: 'red'},
+                {background: 'yellow'},
+                {background: 'blue'},
+                {background: 'green'},
+                {background: 'deeppink'},
+                {background: 'cyan'}
+            ],
+            inp2:''
+        }
+    });
+</script>
+</html>
