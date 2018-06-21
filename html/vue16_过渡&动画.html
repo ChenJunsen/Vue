@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/anim_fade.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/anim_slide_fade.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/anim_bounce.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/animate@3.5.1.css"/><!--第三方动画库-->
+    <meta charset="UTF-8">
+    <title>过渡&动画</title>
+    <style>
+        body {
+            background: black;
+            color: deeppink;
+        }
+
+        .btn {
+            border: solid lime 5px;
+            color: turquoise;
+            background: transparent;
+            font-size: 30px;
+            padding: 5px;
+        }
+
+        .ic {
+            width: 150px;
+            height: 150px;
+            padding: 5px;
+            border: dashed;
+            border-color: #f44336;
+            border-width: 3px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h1>简单的淡入淡出动画</h1>
+    <button @click="changeVisiblity" class="btn">{{isVisible?'隐藏':'显示'}}</button>
+    <br>
+    <!--这里的transition使用了name属性，那么对应的动画样式中的动画效果都以fade为前缀-->
+    <h3>fade</h3>
+    <transition name="fade">
+        <img src="../asset/img/ic_user.png" class="ic" v-show="isVisible">
+    </transition>
+    <!--这里的transition没有name属性，那么对应的动画样式中的动画效果都以v为前缀-->
+    <h3>slide fade</h3>
+    <transition>
+        <img src="../asset/img/ic_info.png" class="ic" v-show="isVisible">
+    </transition>
+    <h3>bounce</h3>
+    <transition name="bounce">
+        <img src="../asset/img/ic_stop.png" class="ic" v-show="isVisible">
+    </transition>
+    <h3>总结:</h3>
+    过渡其实就是一个淡入淡出的效果。Vue在元素显示与隐藏的过渡中，提供了 6 个 class 来切换：
+    <ol>
+        <li>v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。</li>
+        <li>v-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。</li>
+        <li>v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。</li>
+        <li>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。</li>
+        <li>v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。</li>
+        <li>v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。</li>
+    </ol>
+    <hr>
+    <h1>自定义过渡类名</h1>
+    <button @click="isVisible2=!isVisible2" class="btn">{{isVisible2?'隐藏':'显示'}}</button>
+    <transition name="custom-classes-transition"
+                enter-active-class="animated tada"
+                leave-active-class="animated bounceOutRight">
+        <img src="../asset/img/ic_question.png" class="ic" v-show="isVisible2">
+    </transition>
+</div>
+</body>
+<script>
+    var vue = new Vue({
+        el: "#vApp",
+        data: {
+            isVisible: true,
+            isVisible2:true
+        },
+        methods: {
+            changeVisiblity: function () {
+                this.isVisible = !this.isVisible;
+            }
+        }
+    });
+</script>
+</html>

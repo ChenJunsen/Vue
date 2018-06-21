@@ -1,0 +1,13 @@
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.v-enter-active {
+    transition: all 1s ease;
+}
+.v-active {
+    transition: all 2s cubic-bezier(2.0, 1.2, 1.6, 2);
+}
+.v-enter, .v-leave-to
+    /* .slide-fade-leave-active 用于 2.1.8 以下版本 */ {
+    transform: translateX(20px);
+    opacity: 0;
+}
