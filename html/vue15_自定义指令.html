@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <style>
+        body {
+            background: black;
+            color: aqua;
+        }
+
+        .ed {
+            border: solid fuchsia 5px;
+            background: transparent;
+            padding: 5px;
+            margin: 5px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h1>钩子函数</h1>
+    <li>bind: 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。</li>
+    <li>inserted: 被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于 document 中）。</li>
+    <li>update: 被绑定元素所在的模板更新时调用，而不论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新（详细的钩子函数参数见下）。</li>
+    <li>componentUpdated: 被绑定元素所在模板完成一次更新周期时调用。</li>
+    <li>unbind: 只调用一次， 指令与元素解绑时调用。</li>
+    <input type="text" class="ed" placeholder="OOOOO" v-log>
+    <input type="text" class="ed" placeholder="OOOOO" v-log>
+    <hr>
+    <h1>钩子函数参数</h1>
+    <ol>
+        <li>el: 指令所绑定的元素，可以用来直接操作 DOM 。</li>
+        <li>binding: 一个对象，包含以下属性：</li>
+        <ul>
+            <li>name: 指令名，不包括 v- 前缀。</li>
+            <li>value: 指令的绑定值， 例如： v-my-directive="1 + 1", value 的值是 2。</li>
+            <li>oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。</li>
+            <li>expression: 绑定值的表达式或变量名。 例如 v-my-directive="1 + 1" ， expression 的值是 "1 + 1"。</li>
+            <li>arg: 传给指令的参数。例如 v-my-directive:foo， arg 的值是 "foo"。</li>
+            <li>modifiers: 一个包含修饰符的对象。 例如： v-my-directive.foo.bar, 修饰符对象 modifiers 的值是 { foo: true, bar: true }。</li>
+        </ul>
+        <li>vnode: Vue 编译生成的虚拟节点。</li>
+        <li>oldVnode: 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。</li>
+    </ol>
+    <div v-just-demo:ok.seek.pool="1+1"></div>
+    <hr>
+    <h1>实战演示</h1>
+    <input type="text" placeholder="输入字符要大于等于5" v-vali="inp" v-model="inp">
+</div>
+</body>
+<script>
+    <!--指令跟组件同样都支持全局与局部注册-->
+    var logDirObj = {
+        inserted: function (el) {//inserted是钩子函数，表示当指定元素被插入进DOM中时触发事件
+            el.focus();//获取焦点
+            console.log("inserted!!!")
+        }
+    };
+    var justDemoObj = {
+        bind: function (el, binding, vnode) {
+            var s = JSON.stringify;
+            el.innerHTML = "name:" + binding.name + '<br>' +
+                    "value:" + binding.value + '<br>' +
+                    "oldValue:" + binding.oldValue + '<br>' +
+                    "expression:" + binding.expression + '<br>' +
+                    "arg:" + binding.arg + '<br>' +
+                    "modifiers:" + JSON.stringify(binding.modifiers) + '<br>' +
+                    "vnode:" + Object.keys(vnode).join(', ') + '<br>'
+        }
+    }
+    var validateObj = {
+
+    }
+    var valiFunc=function (el, binding){
+        var val = binding.value;
+        var sty = el.style;
+        console.log('vv:'+val)
+        sty.borderWidth = '5px';
+        sty.background='transparent';
+        sty.color='white';
+        sty.fontSize='35px';
+        if (val && val.length > 4) {
+            sty.borderColor = 'green';
+//                el.style.backgroundColor='green';
+        } else {
+            sty.borderColor = 'red';
+//                el.style.backgroundColor='red';
+        }
+    };
+    Vue.directive('log', logDirObj);
+    Vue.directive('just-demo', justDemoObj);
+    Vue.directive('vali',valiFunc);//有时候我们不需要其他钩子函数，我们可以简写函数
+    var vue = new Vue({
+        el: '#vApp',
+        data: {
+            inp:''
+        }
+    });
+</script>
+</html>
