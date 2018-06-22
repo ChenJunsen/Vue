@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <script src="../js/vue.min.js"></script>
+    <script src="../js/date_format.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <meta charset="UTF-8">
     <title>实战2</title>
@@ -17,6 +18,14 @@
             color: deeppink;
             padding: 30px;
         }
+        .l{
+            display: inline-block;
+            background: transparent;
+            color: chartreuse;
+            border: solid mediumorchid 5px;
+            font-size: 35px;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -31,6 +40,15 @@
         <input type="text" placeholder="输入文字来实现双向绑定" v-model="inp">{{inp}}<br>
         <!--单击事件绑定-->
         <button v-on:click="btnClick(inp)" class="button red">弹窗显示输入了啥</button>
+        <hr>
+        <h1>生命周期</h1>
+        通常称之为生命周期钩子，常用的有:
+        <li>created:实例创建完后调用，只是完成数据的观测，$el在这里不可用</li>
+        <li>mounted:el挂载到实例上后调用，一般第一个业务逻辑在这里开始</li>
+        <li>beforeDestroy:实例销毁之前调用。主要解绑一些使用addEventListener监听事件等</li>
+        <hr>
+        <h1>实例:简单的计时器</h1>
+        <label class="l">{{date}}</label>
     </div>
 </div>
 </body>
@@ -40,11 +58,29 @@
         el: "#vApp",//还可以写成el:document.getElementById('vApp')
         data: {
             setVisible: true,
-            inp:''
+            inp:'',
+            date:new Date().Format("yyyy-MM-dd hh:mm:ss")
         },
         methods:{
             btnClick:function (n) {
                 alert('你输入了:'+n);
+            }
+        },
+        created:function () {
+            console.log('created!!!,setVisible is :'+this.setVisible);
+        },
+        mounted:function () {
+            //this指代当前的Vue实例
+            //$el表示el所绑定的dom元素，然后再具体地.XXX就可以得到XXX属性的值
+            console.log('mounted!!!,el is :'+this.$el.id);
+            var _this=this;//保证作用域一致，由于是在function里面，直接使用this.date获取的不是外部的date而是function的date
+            this.timer=setInterval(function () {
+                _this.date=new Date().Format("yyyy-MM-dd hh:mm:ss");
+            },1000);
+        },
+        beforeDestroy:function () {
+            if(this.timer){
+                clearInterval(this.timer);
             }
         }
     })
