@@ -19,7 +19,8 @@
             padding: 5px;
             margin: 10px;
         }
-        img{
+
+        img {
             width: 80px;
             height: 80px;
         }
@@ -44,13 +45,36 @@
         <img src="../asset/img/ic_stop.png" v-show="calLen(inp)>5">
         <img src="../asset/img/ic_info.png" v-show="calLen(inp)>10">
     </div>
+    <hr>
+    <h1>v-if元素复用</h1>
+    <h3>出于效率考虑，Vue在渲染元素的时候，会尽可能地复用自己已有的元素而非重新渲染。</h3>
+    <h3>会复用</h3>
+    <template v-if="ipType==='txt'">
+        <input class="edit" placeholder="输入姓名">
+    </template>
+    <template v-else>
+        <input class="edit" placeholder="输入邮箱">
+    </template>
+    <button @click="changeType">改变类型</button>
+    <h3>不会复用</h3>
+    <template v-if="ipType==='txt'">
+        <input class="edit" placeholder="输入姓名" key="ip-name">
+    </template>
+    <template v-else>
+        <input class="edit" placeholder="输入邮箱" key="ip-email">
+    </template>
+    <button @click="changeType">改变类型</button>
+    <p>
+        禁用v-if的复用方式就是添加一个唯一的key
+    </p>
 </div>
 </body>
 <script>
     new Vue({
         el: '#vApp',
         data: {
-            inp: ''
+            inp: '',
+            ipType: 'txt'
         },
         methods: {
             calLen: function (n) {
@@ -59,6 +83,9 @@
                 } else {
                     return n.split('').length;
                 }
+            },
+            changeType: function () {
+                this.ipType = this.ipType === 'txt' ? 'other' : 'txt';
             }
         }
     })
