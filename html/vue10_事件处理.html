@@ -17,6 +17,10 @@
             border-radius: 5px;
             margin: 3px;
         }
+        .green{
+            color: chartreuse;
+            font-size: 30px;
+        }
     </style>
 </head>
 <body>
@@ -71,6 +75,9 @@
     <h3>c+r</h3>
     <!--测试没有效果-->
     <input type="button" class="btn" value="监听c+r" @click.67.82="cAndR()">
+    <hr>
+    <h1>Vue提供了一个特殊变量$event，用于访问原生DOM事件</h1>
+    <a href="http://www.baidu.com" @click="prevent('这是一个测试，让点击失效',$event)" class="green">跳转到百度</a>
 </div>
 </body>
 <script>
@@ -97,6 +104,10 @@
             cAndR:function () {
                 alert('点到了c+r键');
                 console.log('点到了c+r键');
+            },
+            prevent:function (msg,$event) {
+                $event.preventDefault();
+                alert(msg);
             }
         }
     });
