@@ -59,6 +59,7 @@
     <input type="text" class="ed" placeholder="请输入字符" v-model="inp"><br>
     <mspan v-bind:msg="inp"></mspan>
     <h3>prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来</h3>
+    <!--这个例子展示了自定义组件的数据不是写死的，而是来自父级的动态数据-->
     <input type="text" class="ed2" v-model="inp2">
     <minput :txt="inp2"></minput>
     <hr>
@@ -66,6 +67,11 @@
     <div v-for="(color,index) in colors">
         <squ :sstyle="color" :desc="index"></squ>
     </div>
+    <hr>
+    <h1>实例演示3：直接传递和v-bind传递的比较</h1>
+    <h3>当直接传递数字，布尔值，数组，对象的时候，如果不使用v-bind,则只能传递字符串</h3>
+    <display display="[0,1,2]"></display><br>
+    <display :display="[0,1,2]"></display>
 </div>
 </body>
 <script>
@@ -108,11 +114,16 @@
         props:['txt','model'],
         template:'<input type="text" class="ed" :value="txt" placeholder="单向绑定的哦" v-bind:v-model="model">'
     }
+    var displayCompObj={
+        props:['display'],
+        template:'<span>传入数据是{{display}},长度为{{display.length}}</span>'
+    }
     //全局注册
     Vue.component('mspan', spanCompObj);
     Vue.component('calspan', calCompObj);
     Vue.component('squ', squCompObj);
     Vue.component('minput',edCompObj);
+    Vue.component('display',displayCompObj);
     var vue = new Vue({
         el: '#vApp',
         data: {
