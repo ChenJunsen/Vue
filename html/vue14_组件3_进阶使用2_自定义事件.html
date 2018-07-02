@@ -39,7 +39,7 @@
 <body>
 <div id="vApp">
     <h1>实例:自定义计数按钮</h1>
-    <counter-btn txt="点了" cc="btn" v-on:cplus="add2" v-on:click.native="al('ok')"></counter-btn><span class="l">{{total}}</span>
+    <counter-btn cb-text="点了" cc="btn" v-on:cplus="add2" v-on:click.native="al('ok')"></counter-btn><span class="l">{{total}}</span>
     <p class="p1">
         父组件是使用 props 传递数据给子组件，但如果子组件要把数据传递回去，就需要使用自定义事件！<br>
         我们可以使用 v-on 绑定自定义事件, 每个 Vue 实例都实现了事件接口(Events interface)，即：<br>
@@ -58,7 +58,7 @@
     var cbCompObj = {
         props: {
             //按钮基础文字
-            txt:{
+            cbText:{//由于HTML不区分大小写，当使用DOM模板时，驼峰命名的props名称要转换为短横线分割命名，即外部引用这个属性要变为:cb-text
                 required:false,
                 type:String
             },
@@ -67,7 +67,7 @@
                 required:true
             }
         },
-        template: '<button :class="cc" v-on:click="btnClick">{{txt+count}}</button>',
+        template: '<button :class="cc" v-on:click="btnClick">{{cbText+count}}</button>',
         data: function () {
             return {
                 count:0//定义一个计数的变量
