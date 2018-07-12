@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>组件高级用法</title>
+    <style>
+        body{
+            color: aquamarine;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h1>递归组件</h1>
+    <recurr v-bind:count="1"></recurr>
+    <hr>
+</div>
+</body>
+<script>
+    var recurrObj = {
+        name: 'recurr',
+        template: '\
+        <div>\
+            <li>递归组件{{count}}</li>\
+            <recurr :count="count+1" v-if="count<3">\
+            </recurr>\
+        </div>',
+        props: {
+            count: {
+                type: Number,
+                default: 1
+            }
+        }
+    };
+    Vue.component('recurr', recurrObj);
+    var vue = new Vue({
+        el: "#vApp",
+        data: {}
+    });
+</script>
+</html>
