@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Slot插槽</title>
+    <style>
+        body {
+            background: black;
+            color: deeppink;
+        }
+
+        .btn {
+            border: solid lime 5px;
+            color: turquoise;
+            background: transparent;
+            font-size: 30px;
+            padding: 5px;
+        }
+
+        .white {
+            color: white;
+        }
+
+        .green_border {
+            border: green solid 2px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <h1>一.slot基本用法</h1>
+    <div class="green_border">
+        （1）实例1<br>
+        <simple-comp>
+
+        </simple-comp>
+        （1）实例2<br>
+        <simple-comp>
+            <p>我是父组件</p>
+        </simple-comp>
+    </div>
+    <h2>1.首先要理解一个概念:编译作用域</h2>
+    <p>
+        实例2中的<\p\>就属于父级的编译域，slot的作用就是在父级编译域没有填充的时候填充他自己的东西
+    </p>
+    <hr>
+    <h1>二.slot分发</h1>
+    <simple-comp2>
+
+    </simple-comp2>
+    <simple-comp2>
+        <h2 slot="p1">我是替换p1的父组件</h2>
+        {{1+1}}
+    </simple-comp2>
+    <hr>
+
+</div>
+
+<script>
+    var simpleObj = {
+        template: '\
+        <div>\
+        <slot>\
+            <h1 class="white">在父组件没有填充的时候就会出现我</h1>\
+        <slot/>\
+        </div>'
+    };
+    var simpleObj2 = {
+        //可以给slot指定一个名字，然后在外层可以设置指定名字的slot
+        template: '\
+        <h1>\
+            <slot name="p1">\
+                 <P>如果父组件没有填充，我就是p1</P>\
+            </slot>\
+            <slot>\
+                <p class="white">如果父组件没有填充，我就是其他没填充</p>\
+            </slot>\
+        </h1>'
+    };
+    var simpleObj3={
+        template:'<>'
+    };
+    Vue.component('simpleComp', simpleObj);
+    Vue.component('simpleComp2',simpleObj2);
+    var vue = new Vue({
+        el: "#vApp",
+        data: {}
+    });
+</script>
+</body>
+</html>
