@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS布局</title>
+    <style type="text/css">
+        body {
+            background: black;
+            color: deeppink;
+        }
+
+        h1.warn {
+            color: yellow;
+        }
+        li{
+            color: aquamarine;
+        }
+        .lay_abs{
+            position: absolute;
+            right: 50px;
+            bottom: 50px;
+        }
+        .lay_rel_1{
+            position: relative;
+            height: 100px;
+            width: 100%;
+            border: solid gold 2px;
+        }
+        .lay_fixed{
+            position: fixed;
+            right: 400px;
+            top:20px;
+        }
+        img{
+            width: 80px;
+            height: 80px;
+        }
+        .dis{
+            width: 100px;
+            border: solid aliceblue 1px;
+            padding: 2px;
+            text-align: center;
+        }
+        .dd{
+            position: relative;
+            height: 100px;
+            background: white;
+            width: 100%;
+        }
+        h3{
+            color: white;
+        }
+        .rel_left{
+            position: relative;
+            left: 30px;
+        }
+        .rel_right{
+            position: relative;
+            right: 30px;
+        }
+        .z_border{
+            border: solid #4CAF50 2px;
+            width: 100%;
+            height: 100px;
+        }
+        .z_-1{
+            z-index: -1;
+            position: absolute;
+        }
+        .z_1{
+            z-index: 1;
+            position: absolute;
+            left: 300px;
+        }
+        .inline{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<h1 class="warn">*本页教程不包含Flex布局*</h1>
+可以通过设置<a href="http://www.w3school.com.cn/cssref/pr_class_position.asp" style="color: chartreuse">position</a>的值来设置相应的布局<br>
+该属性的默认值为<span style="color: darkorange">static</span>,默认值。没有定位，元素出现在正常的流中（忽略 top, bottom, left, right 或者 z-index 声明）。
+<div>
+    <h2>1.绝对布局</h2>
+    <li>absolute</li>
+    生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。
+    元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。<br>
+    <div class="lay_abs">
+        <div class="dis">
+            <img src="../asset/img/ic_user.png"><br>
+            absolute，相对于非static的第一个父元素(因为父元素都是默认static,所以等同整个屏幕)右哦，下间距
+        </div>
+    </div>
+    <div class="lay_rel_1">
+        <div class="lay_abs">
+            <div class="dis">
+                <img src="../asset/img/ic_user.png"><br>
+                absolute，这里的第一个非static父级元素是黄色边框区域，相对边框右，下间距
+            </div>
+        </div>
+    </div>
+    <li>fixed</li>
+    与absolute类似，不过是直接相对于浏览器窗口来说了。
+    <div class="lay_fixed">
+        <div class="dis">
+            <img src="../asset/img/ic_info.png"><br>
+            fixed，相对窗口右，上间距
+        </div>
+    </div>
+    <h2>2.相对布局</h2>
+    <li>relative</li>
+    生成相对定位的元素，相对于其正常位置进行定位。
+    因此，"left:20" 会向元素的 LEFT 位置添加 20 像素。<br>
+    <h3>正常位置</h3>
+    <h3 class="rel_left">正常位置左移</h3>
+    <h3 class="rel_right">正常位置右移</h3>
+    <h2>3.层级</h2>
+    <li>z-index</li>
+    添加该属性后，就会有类似安卓FrameLayout的效果，该属性默认值为0，值越小，越靠里层
+    <div class="z_border">
+        <div class="dis inline z_-1">
+            <img src="../asset/img/ic_info.png"><br>
+            z-index=-1
+        </div>
+        <div class="dis inline z_1">
+            <img src="../asset/img/ic_info.png"><br>
+            z-index=1
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
