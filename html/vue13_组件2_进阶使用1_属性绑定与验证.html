@@ -29,6 +29,7 @@
             padding: 5px;
             margin: 5px;
         }
+
         .ed2 {
             background: slategrey;
             border: solid greenyellow 5px;
@@ -70,7 +71,8 @@
     <hr>
     <h1>实例演示3：直接传递和v-bind传递的比较</h1>
     <h3>当直接传递数字，布尔值，数组，对象的时候，如果不使用v-bind,则只能传递字符串</h3>
-    <display display="[0,1,2]"></display><br>
+    <display display="[0,1,2]"></display>
+    <br>
     <display :display="[0,1,2]"></display>
 </div>
 </body>
@@ -90,12 +92,12 @@
         //属性值一定要全小写，像sStyle或者s-style是不行的
 //        props: ['sstyle','desc'],
         //组件可以为 props 指定验证要求。
-       // prop 是一个对象而不是字符串数组时，它包含验证要求：
-        props:{
-            sstyle:{
-                required:true//该属性是必须的
+        // prop 是一个对象而不是字符串数组时，它包含验证要求：
+        props: {
+            sstyle: {
+                required: true//该属性是必须的
             },
-            desc:{
+            desc: {
 //                type 可以是下面原生构造器：
 //                String
 //                Number
@@ -104,26 +106,33 @@
 //                Object
 //                Array
 //                type 也可以是一个自定义构造器，使用 instanceof 检测。
-                type:String,
-                default:'S'
+                type: String,
+                default: 'S'
+            },
+            name: {
+                type: String,
+                //自定义验证函数
+                validator: function (value) {
+                    return value.length > 2;
+                }
             }
         },
         template: '<div :style="sstyle" class="squ">{{desc}}</div>'
     }
-    var edCompObj={
-        props:['txt','model'],
-        template:'<input type="text" class="ed" :value="txt" placeholder="单向绑定的哦" v-bind:v-model="model">'
+    var edCompObj = {
+        props: ['txt', 'model'],
+        template: '<input type="text" class="ed" :value="txt" placeholder="单向绑定的哦" v-bind:v-model="model">'
     }
-    var displayCompObj={
-        props:['display'],
-        template:'<span>传入数据是{{display}},长度为{{display.length}}</span>'
+    var displayCompObj = {
+        props: ['display'],
+        template: '<span>传入数据是{{display}},长度为{{display.length}}</span>'
     }
     //全局注册
     Vue.component('mspan', spanCompObj);
     Vue.component('calspan', calCompObj);
     Vue.component('squ', squCompObj);
-    Vue.component('minput',edCompObj);
-    Vue.component('display',displayCompObj);
+    Vue.component('minput', edCompObj);
+    Vue.component('display', displayCompObj);
     var vue = new Vue({
         el: '#vApp',
         data: {
@@ -136,7 +145,7 @@
                 {background: 'deeppink'},
                 {background: 'cyan'}
             ],
-            inp2:''
+            inp2: ''
         }
     });
 </script>
