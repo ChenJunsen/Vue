@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>X-Template</title>
+    <style type="text/css">
+        body {
+            background: black;
+            color: aqua;
+        }
+        .spec{
+            color: fuchsia;
+            font-size: 15px;
+        }
+        .border{
+            color: floralwhite;
+            padding: 10px;
+            border: solid aquamarine 2px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    初级教程的vue创建方式都是通过<span class="spec">new Vue()</span>创建的，其实还有更高级的动态创建方式，只不过一般业务永不到而已。<br>
+    Vue提供了<span class="spec">Vue.extend</span>和<span class="spec">$mount</span>两种方式来挂载一个实例。
+    <div class="border">
+        如果Vue实例在实例化时没有收到<span class="spec">el</span>选项,它就处于‘未挂载状态’，没有关联DOM元素。<br>
+        这时可以手动调用<span class="spec">$mount()</span>进行挂载。该方法返回实例本身，因此可以链式调用其他实例方法。
+    </div>
+    <div id="vApp">
+
+    </div>
+</div>
+</body>
+<script>
+    var myComponent=Vue.extend({
+        template:'<div>{{name}} say hello</div>',
+        data:function () {
+            return {
+                name:'Jason'
+            }
+        }
+    });
+    new myComponent().$mount("#vApp");
+</script>
+</html>
