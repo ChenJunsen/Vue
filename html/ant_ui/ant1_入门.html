@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- A11Y：注意设置页面的 lang 属性 -->
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <!-- A11Y：打开页面时，屏幕阅读器会首先阅读 title 的内容，确保 title 准确描述页面 -->
+    <title>AntUI入门</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <!-- A11Y：如果有无障碍方面的需求，建议使用下面的 viewport 设置，不要禁止页面缩放 -->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />-->
+    <script>
+        //fontsize推荐计算方式
+        var docEl = document.documentElement;
+        docEl.style.fontSize = 100 / 375 * docEl.clientWidth  + 'px';
+        window.addEventListener('resize', function() {
+            docEl.style.fontSize = 100 / 375 * docEl.clientWidth + 'px';
+        });
+    </script>
+    <link rel="stylesheet" href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.10/dpl/antui.css"/>
+</head>
+<body>
+    <h1>这只是一个AntUI的初始模板实例</h1>
+    <div>
+        <a href="https://antui.alipay.com/10.1.10/index.html#Usage%20%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">教程实例请看这里</a>
+    </div>
+</body>
+</html>

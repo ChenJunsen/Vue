@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>X-Template</title>
+    <style type="text/css">
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            background: black;
+            color: aqua;
+        }
+        .list_item{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .txt_left{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .txt_right{
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    使用X-template可以让你在代码里面优雅地写Vue模板而不需要考虑换行的操作。
+<div id="vApp">
+    <list-item left-text-color="red" left-text="金额" right-text="$500.00"></list-item>
+    <list-item right-text-color="yellow"></list-item>
+    <list-item></list-item>
+</div>
+</body>
+<!--使用x-template需要定义一个script,type设置为‘text/x-template’,并加上一个id,然后在注册组件的时候，可以通过该id找到该组件-->
+<script type="text/x-template" id="list-item">
+    <div class="list_item">
+        <span class="txt_left" :style="getLeftTextStyleObj">{{leftText}}</span>
+        <span class="txt_right" :style="getRightTextStyleObj">{{rightText}}</span>
+    </div>
+</script>
+<script>
+    Vue.component("list-item",{
+        template:"#list-item",//找到刚才那个设置id的组件
+        props:{
+            //自定义属性支持驼峰写法，在外部引用时，对应属性应该已-分割
+            //例如leftText,引用方式就应该为left-text
+            leftText:{
+                type:String,
+                default:'左侧标题',
+                required:true
+            },
+            rightText:{
+                type:String,
+                default:'右侧描述文字'
+            },
+            leftTextColor:{
+                type:String,
+                default:'black'
+            },
+            rightTextColor:{
+                type:String,
+                default:'darkgray'
+            }
+        },
+        computed:{
+            getLeftTextStyleObj:function () {
+                return {
+                   color: this.leftTextColor
+                };
+            },
+            getRightTextStyleObj:function () {
+                return {
+                    color: this.rightTextColor
+                };
+            }
+        }
+    });
+    var vue=new Vue({
+        el:"#vApp",
+        data:{
+        }
+    });
+</script>
+</html>
