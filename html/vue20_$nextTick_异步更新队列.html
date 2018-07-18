@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/vue.min.js"></script>
+    <meta charset="UTF-8">
+    <title>X-Template</title>
+    <style type="text/css">
+        body{
+            background: black;
+            color: aqua;
+        }
+        .dv1{
+            border: solid fuchsia 2px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="vApp">
+    <div class="dv1">
+        <div id="tt" v-if="showText">我是文本样例哦</div>
+        <button @click="look">查看上面的文本</button>
+    </div>
+    <h2>这个时候，点击上面的按钮，控制台会报一个$nextTick异步更新的错。</h2>
+    这是因为Vue在观察到数据变化时并不是直接更新dom,而是开启一个队列，并缓冲在同一事件循环中发生的所有数据变化。
+    在缓冲时，会去除重复数据，从而避免不必要的计算和操作。<br>
+    正确写法如下:
+    <div class="dv1">
+        <div id="tt2" v-if="showText2">我是文本样例哦</div>
+        <button @click="look2">查看上面的文本</button>
+    </div>
+    理论上，不要主动去操作DOM,但是如果使用一些第三方库，如popper.js,swiper.js等，与Vue配合时，就要利用好$nextTick</div>
+</body>
+<script>
+    var vue=new Vue({
+        el:"#vApp",
+        data:{
+            showText:false,
+            showText2:false
+        },
+        methods:{
+            look:function () {
+                this.showText=true;
+                alert(document.getElementById('tt').innerHTML);
+            },
+            look2:function () {
+                this.showText2=true;
+                this.$nextTick(function () {
+                    alert(document.getElementById('tt2').innerHTML);
+//                    console.log(document.getElementById('tt').innerHTML)
+                });
+            }
+        }
+    });
+</script>
+</html>
